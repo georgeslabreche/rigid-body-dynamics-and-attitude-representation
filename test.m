@@ -14,9 +14,9 @@ J23 = 0.029431977034595;
 J33 = 4.987361769351999;
 
 % Inertia Matrix
-JJ = [J11, -J12, -J13;...
+JJ = [J11, -J12, J13;...
       -J12, J22, -J23;...
-      -J13, -J23, J33]
+      J13, -J23, J33]
 
 % The principal moment of inertia of the body
 % is represented by the eigan values and
@@ -29,5 +29,8 @@ check = JJ==Z*JP*transpose(Z)
 syms lambda
 detFn = det(JJ-lambda*eye(3)) == 0;
 solLambda = solve(detFn, lambda);
-
 solLambda
+
+fzero(@(lambda) det(JJ-lambda*eye(3)), 1)
+
+
