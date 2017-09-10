@@ -118,14 +118,14 @@ b1_e = zeros(3,length(time));
 b2_e = zeros(3,length(time));
 b3_e = zeros(3,length(time));
 
-
 for t_time = 1 : length(time)
-   RR(:,:,t_time) = eul_to_rotmat(psi(t_time), theta(t_time), phi(t_time)); 
+   RR(:,:,t_time) = eul_to_rotmat(psi(t_time), theta(t_time), phi(t_time) ); 
    T(t_time,1) = t_time * 0.1;
    
-   %b1_e(:,t_time) = 
-   %b2_e(:,t_time) = 
-   %b3_e(:,t_time) = 
+   % The body reference frame wrt inertial frame in time:
+   b1_e(:,t_time) = Z(:,1);
+   b2_e(:,t_time) = Z(:,2);
+   b3_e(:,t_time) = Z(:,3);
    
 end
 
@@ -138,28 +138,22 @@ for t_time = 1:length(time)
     quiver3(0,0,0,b3_e(1,t_time),b3_e(2,t_time),b3_e(3,t_time),'b');
     
     % angular momentum wrt inertial reference frame
-    
-    
     xlim([-1.,1.5]);
     ylim([-1.,1.5]);
     zlim([-0.5,1.5]);
     
-    if t_time ==1
-        
+    if t_time ==1  
         grid
         quiver3(0,0,0,1.5*e3_e(1,1),1.5*e3_e(2,1),1.5*e3_e(3,1),'k')
         quiver3(0,0,0,1.5*e1_e(1,1),1.5*e1_e(2,1),1.5*e1_e(3,1),'k')
         quiver3(0,0,0,1.5*e2_e(1,1),1.5*e2_e(2,1),1.5*e2_e(3,1),'k')
-        keyboard
-        
+        keyboard 
     end
     
     pause(0.1)
 %     hold off
 %     plot3(0,0,0,'b')
-%     
-    
-    
+%      
 end
 
  

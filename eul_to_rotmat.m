@@ -3,7 +3,7 @@ function [ m ] = eul_to_rotmat(psi, theta, phi)
 
 % First row of the rotation matrix.
 m1 = cos(psi) * cos(phi) - cos(theta) * sin(phi) * sin(psi);
-m2 = coa(psi) * sin(phi) + cos(theta) * cos(phi) * sin(psy);
+m2 = cos(psi) * sin(phi) + cos(theta) * cos(phi) * sin(psi);
 m3 = sin(theta) * sin(psi);
 
 % Second row of the rotation matrix.
