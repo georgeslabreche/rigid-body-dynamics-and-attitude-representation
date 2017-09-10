@@ -78,7 +78,14 @@ options=odeset('AbsTol', 1.e-10,'RelTol', 1.e-10);
 %% EULER: 3-1-3 Rotation Sequence
 [time,X]=ode45('dyn_rigid_body_euler', tspan, X0_e, options);
 angle_plot('Euler Angles: 3-1-3 Rotation Sequence', time, X);
+
 W = X(:,1:3);
+
+% Save these for later when we will plot the cones.
+psi = X(:,4);
+theta = X(:,5);
+phi = X(:,6);
+
 
 %% BRYANT
 [time,X]=ode45('dyn_rigid_body_bryant', tspan, X0_b, options);
@@ -96,6 +103,31 @@ xlabel('time [s]');
 ylabel('angular velocity [rpm]');
 legend('w_1', 'w_2', 'w_3');
 
+
+%% BODY AND SPACE CONES
+% other quantities
+RR = zeros(3,3,length(time));
+T = zeros(length(time),1);
+
+b1_b = [1 0 0]';
+b2_b = [0 1 0]';
+b3_b = [0 0 1]';
+
+b1_e = zeros(3,length(time));
+b2_e = zeros(3,length(time));
+b3_e = zeros(3,length(time));
+
+
+for t_time = 1 : length(time)
+   RR(:,:,t_time) = Eul_2_RR(psi(t_time), theta(t_time), phi(t_time)); 
+   %T(t_time,1) = ;
+   
+   
+   %b1_e(:,t_time) = 
+   %b2_e(:,t_time) = 
+   %b3_e(:,t_time) = 
+   
+end
 
  
  
