@@ -79,6 +79,7 @@ options=odeset('AbsTol', 1.e-10,'RelTol', 1.e-10);
 [time,X]=ode45('dyn_rigid_body_euler', tspan, X0_e, options);
 angle_plot('Euler Angles: 3-1-3 Rotation Sequence', time, X);
 
+% save this for later when we will plot the angular velocities.
 W = X(:,1:3);
 
 % Save these for later when we will plot the cones.
@@ -119,14 +120,46 @@ b3_e = zeros(3,length(time));
 
 
 for t_time = 1 : length(time)
-   RR(:,:,t_time) = Eul_2_RR(psi(t_time), theta(t_time), phi(t_time)); 
-   %T(t_time,1) = ;
-   
+   RR(:,:,t_time) = eul_to_rotmat(psi(t_time), theta(t_time), phi(t_time)); 
+   T(t_time,1) = t_time * 0.1;
    
    %b1_e(:,t_time) = 
    %b2_e(:,t_time) = 
    %b3_e(:,t_time) = 
    
+end
+
+for t_time = 1:length(time)
+    hold on
+    
+    % body axes wrt inertial reference frame
+    quiver3(0,0,0,b1_e(1,t_time),b1_e(2,t_time),b1_e(3,t_time),'r');
+    quiver3(0,0,0,b2_e(1,t_time),b2_e(2,t_time),b2_e(3,t_time),'g');
+    quiver3(0,0,0,b3_e(1,t_time),b3_e(2,t_time),b3_e(3,t_time),'b');
+    
+    % angular momentum wrt inertial reference frame
+    
+    
+    xlim([-1.,1.5]);
+    ylim([-1.,1.5]);
+    zlim([-0.5,1.5]);
+    
+    if t_time ==1
+        
+        grid
+        quiver3(0,0,0,1.5*e3_e(1,1),1.5*e3_e(2,1),1.5*e3_e(3,1),'k')
+        quiver3(0,0,0,1.5*e1_e(1,1),1.5*e1_e(2,1),1.5*e1_e(3,1),'k')
+        quiver3(0,0,0,1.5*e2_e(1,1),1.5*e2_e(2,1),1.5*e2_e(3,1),'k')
+        keyboard
+        
+    end
+    
+    pause(0.1)
+%     hold off
+%     plot3(0,0,0,'b')
+%     
+    
+    
 end
 
  
