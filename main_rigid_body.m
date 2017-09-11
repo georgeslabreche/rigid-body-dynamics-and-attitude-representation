@@ -119,13 +119,13 @@ b2_e = zeros(3,length(time));
 b3_e = zeros(3,length(time));
 
 for t_time = 1 : length(time)
-   RR(:,:,t_time) = eul_to_rotmat(psi(t_time), theta(t_time), phi(t_time) ); 
+   RR(:,:,t_time) = eul_to_rotmat(psi(t_time), theta(t_time), phi(t_time)); 
    T(t_time,1) = t_time * 0.1;
    
    % The body reference frame wrt inertial frame in time:
-   b1_e(:,t_time) = Z(:,1);
-   b2_e(:,t_time) = Z(:,2);
-   b3_e(:,t_time) = Z(:,3);
+   b1_e(:,t_time) = RR(:,:,t_time) * b1_b;
+   b2_e(:,t_time) = RR(:,:,t_time) * b2_b;
+   b3_e(:,t_time) = RR(:,:,t_time) * b3_b;
    
 end
 
