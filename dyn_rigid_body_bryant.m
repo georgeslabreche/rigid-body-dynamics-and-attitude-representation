@@ -18,14 +18,18 @@ Wx = [0 -W(3) W(2);...
 dW = -JP^-1*(Wx*JP*W);
 
 % For Bryant: WHYWHWYWHWYHWYWHWYWHYWHWYWYHWY
-%phi_dot_b   = W(1) + (W(2) * sin(phi_b) + W(2) * cos(phi_b)) * tan(theta_b);
-%theta_dot_b = W(2) * cos(phi_b) - W(3) * sin(phi_b);
-%psi_dot_b   = (W(2) * sin(phi_b) + W(3) * cos(phi_b)) / cos(theta_b);
+% phi_dot_b   = W(1) + (W(2) * sin(phi_b) + W(2) * cos(phi_b)) * tan(theta_b);
+% theta_dot_b = W(2) * cos(phi_b) - W(3) * sin(phi_b);
+% psi_dot_b   = (W(2) * sin(phi_b) + W(3) * cos(phi_b)) / cos(theta_b);
 
-psi_dot_b   = (W(2) * sin(phi_b) + W(3) * cos(phi_b)) / cos(theta_b);
-theta_dot_b = W(2) * cos(phi_b) - W(3) * sin(phi_b);
-phi_dot_b   = W(1) + ((W(2) * sin(phi_b) + W(2) * cos(phi_b)) * tan (theta_b));
-%phi_dot_b = W(1)+W(2)*sin(phi_b)*sin(theta_b)+W(3)*cos(phi_b)*sin(theta_b);
+psi_dot_b   = 1/cos(theta_b) * (sin(phi_b) * W(2) + cos(phi_b) * W(3));
+theta_dot_b = 1/cos(theta_b) * (cos(phi_b) * cos(theta_b) * W(2) - sin(phi_b) * cos(theta_b) * W(3));
+phi_dot_b   = 1/cos(theta_b) * (cos(theta_b) * W(1) + sin(phi_b) * sin(theta_b) * W(2) + cos(phi_b) * sin(theta_b) * W(3));
+% 
+% psi_dot_b   = (W(2) * sin(phi_b) + W(3) * cos(phi_b)) / cos(theta_b);
+% theta_dot_b = W(2) * cos(phi_b) - W(3) * sin(phi_b);
+% phi_dot_b   = W(1) + ((W(2) * sin(phi_b) + W(2) * cos(phi_b)) * tan (theta_b));
+% phi_dot_b = W(1)+W(2)*sin(phi_b)*sin(theta_b)+W(3)*cos(phi_b)*sin(theta_b);
 
 dX = [dW; psi_dot_b; theta_dot_b; phi_dot_b];
 
